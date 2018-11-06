@@ -1,5 +1,5 @@
 <template>
-  <tabbar class="footer-page">
+  <tabbar class="footer">
     <tabbar-item selected >
       <img slot="icon" src="../assets/images/common/tabbar-index.png">
       <img slot="icon-active" src="../assets/images/common/tabbar-index-active.png">
