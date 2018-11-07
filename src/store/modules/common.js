@@ -18,7 +18,6 @@ const state = {
 const mutations = {
   // 商品分类
   SET_GOODSGROUP (state, goodsGroup) {
-    console.log('000000', goodsGroup)
     state.goodsGroups = goodsGroup
   },
   // 行业类型

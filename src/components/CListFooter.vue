@@ -21,15 +21,15 @@ export default {
       type: String
     },
     showLoading: {
-      default: true,
+      default: false,
       type: Boolean
     },
     showEnd: {
-      default: true,
+      default: false,
       type: Boolean
     },
     showEmpty: {
-      default: true,
+      default: false,
       type: Boolean
     },
     endText: {
