@@ -1,14 +1,19 @@
 <template>
   <tabbar class="footer">
-    <tabbar-item selected :link="{name: 'home'}">
+    <tabbar-item :selected="curTab === 'home'" :link="{name: 'home'}">
       <img slot="icon" src="../assets/images/common/tabbar-index.png">
       <img slot="icon-active" src="../assets/images/common/tabbar-index-active.png">
       <span slot="label">首页</span>
     </tabbar-item>
-    <tabbar-item :link="{name: 'category'}">
+    <tabbar-item :selected="curTab === 'category'" :link="{name: 'category'}">
       <img slot="icon" src="../assets/images/common/tabbar-category.png">
       <img slot="icon-active" src="../assets/images/common/tabbar-category-active.png">
       <span slot="label">分类</span>
+    </tabbar-item>
+    <tabbar-item :selected="curTab === 'goods'" :link="{name: 'goods'}">
+      <img slot="icon" src="../assets/images/common/tabbar-category.png">
+      <img slot="icon-active" src="../assets/images/common/tabbar-category-active.png">
+      <span slot="label">商品</span>
     </tabbar-item>
     <!-- <tabbar-item :link="{name: 'category'}">
       <img slot="icon" src="../assets/images/common/tabbar-shopcart.png">
@@ -26,9 +31,22 @@
 import { Tabbar, TabbarItem } from 'vux'
 export default {
   naem: 'footer',
+  data () {
+    return {
+      tabList: ['home', 'category', 'goods'],
+      curTab: ''
+    }
+  },
   components: {
     Tabbar,
     TabbarItem
+  },
+  watch: {
+    '$route.name' (newVal) {
+      if (this.tabList.indexOf(newVal) !== -1) {
+        this.curTab = newVal
+      }
+    }
   }
 }
 </script>
