@@ -7,7 +7,7 @@ const state = {
   areaList: [],
   allAreaList: [],
   goodsGroups: {
-    wechat: '',
+    wechat: '153ee98b2a8f8b86d0c51ee4a68a492d',
     weibo: '153ee9861064430132ad9554b2a9c6eb',
     headline: '15d398ae2b41440246b10ee46408535a',
     writer: '25d318ae2b42140216b10ee46408535a',
