@@ -4,6 +4,7 @@ const home = () => import('@/views/home.vue')
 const category = () => import('@/views/category.vue')
 const goods = () => import('@/views/goods.vue')
 const goodsDetail = () => import('@/views/goodsDetail.vue')
+const search = () => import('@/views/search.vue')
 const login = () => import('@/views/login.vue')
 
 Vue.use(Router)
@@ -42,6 +43,13 @@ export default new Router({
       component: goodsDetail,
       meta: {
         title: '商品详情'
+      }
+    }, {
+      path: '/search',
+      name: 'search',
+      component: search,
+      meta: {
+        title: '搜索'
       }
     }, {
       path: '/login',

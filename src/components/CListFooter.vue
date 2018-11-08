@@ -1,10 +1,7 @@
 <template>
   <div class="list-footer">
-
     <load-more :tip="tips" v-if="showLoading"></load-more>
-
     <divider v-if="showEnd">{{ endText }}</divider>
-
     <div class="empty" v-if="showEmpty">
       <img class="empty-img" src="../assets/images/common/no-data.png" alt="">
       <div class="empty-text">{{emptyText}}</div>
@@ -63,5 +60,10 @@ export default {
 }
 .empty-text {
   margin-top: 30px;
+}
+</style>
+<style lang="less">
+.list-footer .weui-loadmore {
+  margin: 0 auto 10px!important;
 }
 </style>

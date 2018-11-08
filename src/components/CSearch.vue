@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     toSearch () {
-      this.$router.push('home')
+      this.$router.push('search')
     }
   }
 }

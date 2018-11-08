@@ -1,11 +1,11 @@
 <template>
   <div class="corder">
     <div v-for="(item, index) in orderList" :key="index">
-      <div class="order">
-        <div class="left" @click="titleCLick(item, index)" :class="{active: item.title == activeTitle}">{{item.title}}</div>
+      <div class="order" @click="titleCLick(item, index)">
+        <div class="left" :class="{active: item.title == activeTitle}">{{item.title}}</div>
         <div class="right">
-          <div class="asc" @click="orderClick(item, index, 'asc')" :class="{active:orderFlag[index]=='asc'}"></div>
-          <div class="desc" @click="orderClick(item, index, 'desc')" :class="{active:orderFlag[index]=='desc'}"></div>
+          <div class="asc"  :class="{active:orderFlag[index]=='asc'}"></div>
+          <div class="desc" :class="{active:orderFlag[index]=='desc'}"></div>
         </div>
       </div>
     </div>
@@ -27,6 +27,9 @@ export default {
   props: {
     orderList: {
       type: Array
+    },
+    resetOrder: {
+      type: Boolean
     }
   },
   data () {
@@ -43,8 +46,16 @@ export default {
       })
     }
   },
+  watch: {
+    'resetOrder' (newVal) {
+      if (newVal) {
+        this.orderFlag = []
+      }
+    }
+  },
   methods: {
-    titleCLick (item, index) { // 点击title切换排序方式
+    // 点击title切换排序方式
+    titleCLick (item, index) {
       this.activeTitle = this.orderList[index].title
       this.orderList.forEach((c, i) => {
         if (i !== index) {
@@ -59,7 +70,7 @@ export default {
           this.$set(this.orderFlag, index, '')
           this.$emit('orderChange', {
             order: '',
-            prop: item
+            prop: ''
           })
           break
         case 1 :
@@ -105,18 +116,20 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  background-color: #fff;
 }
 .order {
   position: relative;
   padding-right: 20px;
   height: 40px;
+  user-select:none;
   .left{
     color: #232323;
     font-size: 14px;
     line-height: 40px;
     padding: 0 5px;
     &.active {
-      // color: #ee3a3d;a1
+      // color: #ee3a3d;
     }
   }
   .right {
