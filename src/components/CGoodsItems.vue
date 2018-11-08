@@ -13,23 +13,71 @@
           <div class="trade-label">{{goodsItem.fdAttr1Array[2]}}</div>
         </div>
         <div class="goods-fan">粉丝数:{{formartNum(goodsItem.fdFunsCount)}}</div>
-        <div class="goods-price-date">有效日:{{formatTime(new Date(goodsItem.fdNextUpdatePriceDate))}}</div>
+        <div class="goods-price-date">有效日:{{goodsItem.fdNextUpdatePriceDate.substr(0,10)}}</div>
       </div>
       <div class="goods-price">
-        <div class="goods-price-item">
-          <div class="goods-price-name">头条</div>
-          <div class="goods-price-num">
-            <img class="image-cart-money" src="../assets/images/goods/cart-money.png" >
-            {{goodsItem.fdPrice1}}
+        <template v-if="type === 'wechat'">
+          <div class="goods-price-item">
+            <div class="goods-price-name">头条</div>
+            <div class="goods-price-num">
+              <img class="image-cart-money" src="../assets/images/goods/cart-money.png" >
+              {{goodsItem.fdPrice1 === 0 ? '暂无报价' : goodsItem.fdPrice1}}
+            </div>
           </div>
-        </div>
-        <div class="goods-price-item">
-          <div class="goods-price-name">二条</div>
-          <div class="goods-price-num">
-            <img class="image-cart-money" src="../assets/images/goods/cart-money.png">
-            {{goodsItem.fdPrice2}}
+          <div class="goods-price-item">
+            <div class="goods-price-name">二条</div>
+            <div class="goods-price-num">
+              <img class="image-cart-money" src="../assets/images/goods/cart-money.png">
+              {{goodsItem.fdPrice2 === 0 ? '暂无报价' : goodsItem.fdPrice2}}
+            </div>
           </div>
-        </div>
+        </template>
+        <template  v-if="type === 'weibo'">
+          <div class="goods-price-item">
+            <div class="goods-price-name">防屏直发</div>
+            <div class="goods-price-num">
+              <img class="image-cart-money" src="../assets/images/goods/cart-money.png" >
+              {{goodsItem.fdPrice1 === 0 ? '暂无报价' : goodsItem.fdPrice1}}
+            </div>
+          </div>
+          <div class="goods-price-item">
+            <div class="goods-price-name">防屏转发</div>
+            <div class="goods-price-num">
+              <img class="image-cart-money" src="../assets/images/goods/cart-money.png" >
+              {{goodsItem.fdPrice2 === 0 ? '暂无报价' : goodsItem.fdPrice2}}
+            </div>
+          </div>
+          <div class="goods-price-item">
+            <div class="goods-price-name">直发</div>
+            <div class="goods-price-num">
+              <img class="image-cart-money" src="../assets/images/goods/cart-money.png" >
+              {{goodsItem.fdPrice3 === 0 ? '暂无报价' : goodsItem.fdPrice3}}
+            </div>
+          </div>
+          <div class="goods-price-item">
+            <div class="goods-price-name">转发</div>
+            <div class="goods-price-num">
+              <img class="image-cart-money" src="../assets/images/goods/cart-money.png" >
+              {{goodsItem.fdPrice4 === 0 ? '暂无报价' : goodsItem.fdPrice4}}
+            </div>
+          </div>
+        </template>
+        <template v-if="type === 'book'">
+          <div class="goods-price-item">
+            <div class="goods-price-name">出境图文价</div>
+            <div class="goods-price-num">
+              <img class="image-cart-money" src="../assets/images/goods/cart-money.png" >
+              {{goodsItem.fdPrice1 === 0 ? '暂无报价' : goodsItem.fdPrice1}}
+            </div>
+          </div>
+          <div class="goods-price-item">
+            <div class="goods-price-name">视频价</div>
+            <div class="goods-price-num">
+              <img class="image-cart-money" src="../assets/images/goods/cart-money.png" >
+              {{goodsItem.fdPrice2 === 0 ? '暂无报价' : goodsItem.fdPrice2}}
+            </div>
+          </div>
+        </template>
       </div>
     </div>
     </div>
@@ -40,6 +88,9 @@ export default {
   props: {
     goodsItem: {
       type: Object
+    },
+    type: {
+      type: String
     }
   },
   data () {
