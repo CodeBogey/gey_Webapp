@@ -38,7 +38,7 @@ export default new Router({
         title: '商品列表'
       }
     }, {
-      path: '/goods-detail/:id',
+      path: '/goods-detail/:type/:id',
       name: 'goods-detail',
       component: goodsDetail,
       meta: {
