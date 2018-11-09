@@ -1,6 +1,6 @@
 <template>
   <div class="search-bar-page">
-    <x-header :left-options="{backText: ''}">
+    <x-header :left-options="{backText: '', showBack}">
       <div slot="overwrite-title" class="search-box">
         <img src="../assets/images/common/icon-search.png" class="icon-search" />
         <div class="search-input" @click="toSearch">{{tips}}</div>
@@ -15,6 +15,10 @@ export default {
     tips: {
       default: '请输入名称，搜索内容长度最多为139',
       type: String
+    },
+    showBack: {
+      default: true,
+      type: Boolean
     }
   },
   methods: {
