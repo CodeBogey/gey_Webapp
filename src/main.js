@@ -5,16 +5,10 @@ import App from './App'
 import router from './router'
 import store from './store'
 import http from './http'
-import { setRemRatio } from '@/utils/tools'
 import 'normalize.css/normalize.css'
 import { XButton, XHeader, ToastPlugin, LoadingPlugin, ConfirmPlugin } from 'vux'
 
 Vue.prototype.$http = http
-
-router.beforeEach((to, from, next) => {
-  setRemRatio()
-  next()
-})
 
 // 安装全局 vux 组件
 Vue.component('x-button', XButton)
