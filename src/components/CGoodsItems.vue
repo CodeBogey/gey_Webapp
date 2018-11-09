@@ -8,9 +8,7 @@
         </div>
         <div class="wechat-code">{{goodsItem.fdCode}}</div>
         <div class="goods-trades">
-          <div class="trade-label">{{goodsItem.fdAttr1Array[0]}}</div>
-          <div class="trade-label">{{goodsItem.fdAttr1Array[1]}}</div>
-          <div class="trade-label">{{goodsItem.fdAttr1Array[2]}}</div>
+          <div class="trade-label" v-for="item in goodsItem.fdAttr1Array" :key="item.id">{{item}}</div>
         </div>
         <div class="goods-fan">粉丝数:{{formartNum(goodsItem.fdFunsCount)}}</div>
         <div class="goods-price-date">有效日:{{goodsItem.fdNextUpdatePriceDate.substr(0,10)}}</div>
@@ -97,6 +95,9 @@ export default {
     return {
     }
   },
+  mounted () {
+    this.noImg()
+  },
   methods: {
     formartNum (num) {
       if (num > 10000) {
@@ -106,6 +107,11 @@ export default {
     },
     formatTime (time) {
       return format(time)
+    },
+    noImg () {
+      if (this.goodsItem.fdImageJson.url === null) {
+        this.goodsItem.fdImageJson.url = '../assets/images/common/no-data.png'
+      }
     }
   }
 }
@@ -153,8 +159,11 @@ export default {
 .wechat-code, .goods-fan {
   margin:6/@rem 0;
 }
+.goods-trades {
+  display: flex;
+  align-items: center;
+}
 .trade-label {
-  display: inline-block;
   background-color:#ededed;
   padding:2.5/@rem;
   margin-right:2.5/@rem;
