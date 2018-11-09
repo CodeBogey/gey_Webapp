@@ -4,7 +4,7 @@
 
     <div class="search-head">
       <div class="search-head-fixer">
-        <c-search></c-search>
+        <c-search :showBack="false"></c-search>
       </div>
     </div>
 
