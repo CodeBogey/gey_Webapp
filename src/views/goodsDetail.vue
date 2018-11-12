@@ -240,21 +240,164 @@
           </div>
           <div class="media-con">
             <template v-if="groupType === 'wechat'">
-              <!-- <div class="text-center" v-if="!totalReadChartVisb && !headLineChartVisb && !maxReadChartVisb">暂无相关数据</div> -->
-              <v-chart :data="totalRead" prevent-default :width="334" :height="200">
+              <div class="text-center chart-empty" v-if="!totalRead.length && !headTotalRead.length && !maxRead.length">暂无相关数据</div>
+              <v-chart v-if="totalRead.length" :data="totalRead" :width="300" :height="200" class="chart-wrap">
                 <v-scale x :tick-count="3" />
                 <v-point
                   :style="{
                     stroke: '#fff',
                     lineWidth: 1
                   }"
+                  :colors="['#ee3a3d']"
                   shape="smooth" />
                 <v-tooltip :show-item-marker="false" show-x-value />
-                <v-line />
+                <v-line :colors="'#ee3a3d'" series-field="type"/>
+                <v-legend :options="{position:'bottom', align: 'center'}"/>
               </v-chart>
+
+              <v-chart v-if="headTotalRead.length" :data="headTotalRead" :width="300" :height="200" class="chart-wrap">
+                <v-scale x :tick-count="3" />
+                <v-point
+                  :style="{
+                    stroke: '#fff',
+                    lineWidth: 1
+                  }"
+                  :colors="['#ee3a3d']"
+                  shape="smooth" />
+                <v-tooltip :show-item-marker="false" show-x-value />
+                <v-line :colors="'#ee3a3d'" series-field="type"/>
+                <v-legend :options="{position:'bottom', align: 'center'}"/>
+              </v-chart>
+
+              <v-chart v-if="maxRead.length" :data="maxRead" :width="300" :height="200" class="chart-wrap">
+                <v-scale x :tick-count="3"/>
+                <v-point
+                  :style="{
+                    stroke: '#fff',
+                    lineWidth: 1
+                  }"
+                  :colors="['#ee3a3d']"
+                  shape="smooth" />
+                <v-tooltip :show-item-marker="false" show-x-value />
+                <v-line :colors="'#ee3a3d'" series-field="type"/>
+                <v-legend :options="{position:'bottom', align: 'center'}"/>
+              </v-chart>
+            </template>
+
+            <template v-if="groupType === 'weibo'">
+              <div class="text-center chart-empty" v-if="!dailyForward.length && !dailyComment.length && !dailyLike.length">暂无相关数据</div>
+              <v-chart v-if="dailyForward.length" :data="dailyForward" :width="300" :height="200" class="chart-wrap">
+                <v-scale x :tick-count="3" />
+                <v-point
+                  :style="{
+                    stroke: '#fff',
+                    lineWidth: 1
+                  }"
+                  :colors="['#ee3a3d']"
+                  shape="smooth" />
+                <v-tooltip :show-item-marker="false" show-x-value />
+                <v-line :colors="'#ee3a3d'" series-field="type"/>
+                <v-legend :options="{position:'bottom', align: 'center'}"/>
+              </v-chart>
+
+              <v-chart v-if="dailyComment.length" :data="dailyComment" :width="300" :height="200" class="chart-wrap">
+                <v-scale x :tick-count="3" />
+                <v-point
+                  :style="{
+                    stroke: '#fff',
+                    lineWidth: 1
+                  }"
+                  :colors="['#ee3a3d']"
+                  shape="smooth" />
+                <v-tooltip :show-item-marker="false" show-x-value />
+                <v-line :colors="'#ee3a3d'" series-field="type"/>
+                <v-legend :options="{position:'bottom', align: 'center'}"/>
+              </v-chart>
+
+              <v-chart v-if="dailyLike.length" :data="dailyLike" :width="300" :height="200" class="chart-wrap">
+                <v-scale x :tick-count="3"/>
+                <v-point
+                  :style="{
+                    stroke: '#fff',
+                    lineWidth: 1
+                  }"
+                  :colors="['#ee3a3d']"
+                  shape="smooth" />
+                <v-tooltip :show-item-marker="false" show-x-value />
+                <v-line :colors="'#ee3a3d'" series-field="type"/>
+                <v-legend :options="{position:'bottom', align: 'center'}"/>
+              </v-chart>
+            </template>
+
+             <template v-if="groupType === 'book'">
+              <div class="text-center chart-empty">暂无相关数据</div>
             </template>
           </div>
         </div>
+      </div>
+      <!-- 最近发布 -->
+      <div v-if="curTab === '最新发布'" class="article-list">
+        <template v-if="latest.length && groupType === 'wechat'">
+          <div class="article-item clearfix" v-for="item in latest" :key="item.id">
+            <div class="article-img-wrap"><img mode="aspectFill" :src="defaultWechatImg" class="article-img"/></div>
+            <div class="article-right">
+              <div class="article-title ellipsis-two">{{item.fdTitle}}</div>
+              <div class="article-info">
+                <div class="cn article-scan inline-block">浏览：{{item.readQty}}</div>
+                <div class="cn article-thumb-up inline-block">点赞：{{item.likeQty}}</div>
+                <div class="cn article-date">{{item.articleCreatedDate}}</div>
+              </div>
+            </div>
+            <div class="split-line"></div>
+          </div>
+
+        </template>
+        <template  v-if="latest.length && groupType === 'weibo'">
+          <div class="article-item clearfix" v-for="item in latest" :key="item.id">
+            <div class="article-img-wrap"><img mode="aspectFill" :src="item.fdImage.small || defaultWeiboImg" class="article-img"/></div>
+              <div class="article-right">
+                  <div class="article-title ellipsis-two">{{item.fdTitle}}</div>
+                  <div class="article-info">
+                    <div class="cn article-scan inline-block">评论：{{item.fdCommentNum}}</div>
+                    <div class="cn article-thumb-up inline-block">点赞：{{item.fdLikeNum}}</div>
+                    <div class="cn article-date">{{item.fdPubDate}}</div>
+                  </div>
+              </div>
+              <div class="split-line"></div>
+          </div>
+        </template>
+      </div>
+      <!-- 热门文章 -->
+      <div v-if="curTab === '热门文章'" class="article-list">
+        <template v-if="hotest.length && groupType === 'wechat'">
+          <div class="article-item clearfix" v-for="item in hotest" :key="item.id">
+            <div class="article-img-wrap"><img mode="aspectFill" :src="defaultWechatImg" class="article-img"/></div>
+            <div class="article-right">
+              <div class="article-title ellipsis-two">{{item.fdTitle}}</div>
+              <div class="article-info">
+                <div class="cn article-scan inline-block">浏览：{{item.readQty}}</div>
+                <div class="cn article-thumb-up inline-block">点赞：{{item.likeQty}}</div>
+                <div class="cn article-date">{{item.articleCreatedDate}}</div>
+              </div>
+            </div>
+            <div class="split-line"></div>
+          </div>
+
+        </template>
+        <template  v-if="hotest.length && groupType === 'weibo'">
+          <div class="article-item clearfix" v-for="item in hotest" :key="item.id">
+            <div class="article-img-wrap"><img mode="aspectFill" :src="item.fdImage.small || defaultWeiboImg" class="article-img"/></div>
+              <div class="article-right">
+                  <div class="article-title ellipsis-two">{{item.fdTitle}}</div>
+                  <div class="article-info">
+                    <div class="cn article-scan inline-block">评论：{{item.fdCommentNum}}</div>
+                    <div class="cn article-thumb-up inline-block">点赞：{{item.fdLikeNum}}</div>
+                    <div class="cn article-date">{{item.fdPubDate}}</div>
+                  </div>
+              </div>
+              <div class="split-line"></div>
+          </div>
+        </template>
       </div>
     </div>
     <div v-if="!hasSevenData" class="seven-null">
@@ -267,8 +410,10 @@
 </template>
 <script>
 import defaultImg from '../assets/images/common/gey_logo.png'
+import defaultWechatImg from '../assets/images/goods/cover_wechat.png'
+import defaultWeiboImg from '../assets/images/goods/cover_weibo.png'
 import CTabList from 'components/CTabList'
-import { Loading, VChart, VTooltip, VLine, VScale, VPoint } from 'vux'
+import { Loading, VChart, VTooltip, VLine, VScale, VPoint, VLegend } from 'vux'
 import { toMyriadSimple } from '../utils/tools'
 export default {
   naem: 'goods-detail',
@@ -277,7 +422,9 @@ export default {
       loading: false,
       loadingTxt: '加载中...',
       title: '商品详情',
-      defaultImg: defaultImg,
+      defaultImg,
+      defaultWechatImg,
+      defaultWeiboImg,
       id: '',
       groupType: '',
       good: [],
@@ -286,17 +433,24 @@ export default {
         cur: '媒体数据'
       },
       curTab: '媒体数据',
-      hasSevenData: true,
+      hasSevenData: false,
       curDimension: {}, // 当前数据维度
 
       // 获取各类数值
       date: [],
-      totalRead: [] // 总阅读量
-
+      // 微信
+      totalRead: [],
+      headTotalRead: [],
+      maxRead: [],
+      // 微博
+      dailyForward: [],
+      dailyComment: [],
+      dailyLike: [],
+      latest: [], // 最新文章
+      hotest: [] // 热门文章
     }
   },
   mounted () {
-    console.log(this.$route.params)
     // 获取路由跳转传递的参数
     this.id = this.$route.params.id
     this.groupType = this.$route.params.type
@@ -305,13 +459,18 @@ export default {
   },
   methods: {
     handleTab (item) {
-      console.log(item)
       if (item === '媒体数据') {
         this.curTab = '媒体数据'
       } else if (item === '最新发布') {
         this.curTab = '最新发布'
+        if (!this.latest.length) {
+          this.fetchArticle()
+        }
       } else if (item === '热门文章') {
         this.curTab = '热门文章'
+        if (!this.hotest.length) {
+          this.fetchArticle()
+        }
       }
     },
     fetchDetail () {
@@ -325,50 +484,107 @@ export default {
       })
     },
     fetchMediaData () {
-      this.loading = true
+      if (this.groupType !== 'book') {
+        this.loading = true
+        let url = ''
+        if (this.groupType === 'wechat') {
+          url = `/billboard/detail/daily/${this.id}`
+        } else if (this.groupType === 'weibo') {
+          url = `/billboard/weibo/data/${this.id}`
+        } else if (this.groupType === 'book') {
+          url = `/billboard/book/data/${this.id}`
+        }
+        this.$http.get(url).then((resp) => {
+          this.hasSevenData = resp.data.hasSevenData
+          if (this.groupType === 'wechat') {
+            toMyriadSimple('fdMaxReadQty', resp.data.dataDimension.dailyDimension)
+            toMyriadSimple('fdTotalHeadLineReadQty', resp.data.dataDimension.dailyDimension)
+            toMyriadSimple('fdTotalReadQty', resp.data.dataDimension.dailyDimension)
+            toMyriadSimple('fdAvgReadQty', resp.data.dataDimension.dailyDimension)
+            toMyriadSimple('fdTotalLikeQty', resp.data.dataDimension.dailyDimension)
+            toMyriadSimple('fdAvgLikeQty', resp.data.dataDimension.dailyDimension)
+            toMyriadSimple('fdMaxReadQty', resp.data.dataDimension.weeklyDimension)
+            this.date = resp.data.variousValues.fdDateEnd
+          } else if (this.groupType === 'weibo') {
+            toMyriadSimple('avgLike', resp.data.dataDimension.dailyDimension)
+            toMyriadSimple('avgForward', resp.data.dataDimension.dailyDimension)
+            toMyriadSimple('avgComment', resp.data.dataDimension.dailyDimension)
+            toMyriadSimple('fdLikeTotal', resp.data.dataDimension.dailyDimension)
+            toMyriadSimple('fdForwardTotal', resp.data.dataDimension.dailyDimension)
+            toMyriadSimple('fdCommentTotal', resp.data.dataDimension.dailyDimension)
+            this.date = resp.data.variousValues.date
+          } else if (this.groupType === 'book') {
+            toMyriadSimple('fdArticleTotal', resp.data.dataDimension.dailyDimension)
+            toMyriadSimple('fdAvgRead', resp.data.dataDimension.dailyDimension)
+            toMyriadSimple('fdReadTotal', resp.data.dataDimension.dailyDimension)
+            toMyriadSimple('fdAvgComment', resp.data.dataDimension.dailyDimension)
+            toMyriadSimple('fdCommentTotal', resp.data.dataDimension.dailyDimension)
+            this.date = resp.data.variousValues.date
+          }
+          this.curDimension = resp.data.dataDimension.dailyDimension
+
+          if (this.groupType === 'wechat') {
+            let totalRead = resp.data.variousValues.fdTotalReadQty // 总阅读量
+            let headTotalRead = resp.data.variousValues.fdTotalHeadLineReadQty // 头条阅读量
+            let maxRead = resp.data.variousValues.fdMaxReadQty // 最高阅读量
+
+            this.date.forEach((item, index) => {
+              this.totalRead.push({date: item, value: totalRead[index], type: '总阅读量'})
+              this.headTotalRead.push({date: item, value: headTotalRead[index], type: '头条阅读量'})
+              this.maxRead.push({date: item, value: maxRead[index], type: '最高阅读量'})
+            })
+          }
+
+          if (this.groupType === 'weibo') {
+            let dailyForward = resp.data.variousValues.dailyForward // 每日转发
+            let dailyComment = resp.data.variousValues.dailyComment // 每日评论
+            let dailyLike = resp.data.variousValues.dailyLike // 每日点赞
+
+            // 获取各类数值
+            this.date.forEach((item, index) => {
+              this.dailyForward.push({date: item, value: dailyForward[index], type: '每日转发'})
+              this.dailyComment.push({date: item, value: dailyComment[index], type: '每日评论'})
+              this.dailyLike.push({date: item, value: dailyLike[index], type: '每日点赞'})
+            })
+          }
+        }).finally(() => {
+          this.loading = false
+        })
+      }
+    },
+    fetchArticle () {
       let url = ''
       if (this.groupType === 'wechat') {
-        url = `/billboard/detail/daily/${this.id}`
+        url = `/billboard/detail/article/${this.id}`
       } else if (this.groupType === 'weibo') {
-        url = `/billboard/weibo/data/${this.id}`
+        url = `/billboard/weibo/article/${this.id}`
       } else if (this.groupType === 'book') {
-        url = `/billboard/book/data/${this.id}`
+        url = `/billboard/book/article/${this.id}`
       }
       this.$http.get(url).then((resp) => {
-        this.hasSevenData = resp.data.hasSevenData
         if (this.groupType === 'wechat') {
-          toMyriadSimple('fdMaxReadQty', resp.data.dataDimension.dailyDimension)
-          toMyriadSimple('fdTotalHeadLineReadQty', resp.data.dataDimension.dailyDimension)
-          toMyriadSimple('fdTotalReadQty', resp.data.dataDimension.dailyDimension)
-          toMyriadSimple('fdAvgReadQty', resp.data.dataDimension.dailyDimension)
-          toMyriadSimple('fdTotalLikeQty', resp.data.dataDimension.dailyDimension)
-          toMyriadSimple('fdAvgLikeQty', resp.data.dataDimension.dailyDimension)
-          toMyriadSimple('fdMaxReadQty', resp.data.dataDimension.weeklyDimension)
-          this.date = resp.data.variousValues.fdDateEnd
+          _.each(resp.data.latest, (item) => {
+            toMyriadSimple('readQty', item)
+            toMyriadSimple('likeQty', item)
+          })
+          _.each(resp.hotest, (item) => {
+            toMyriadSimple('readQty', item)
+            toMyriadSimple('likeQty', item)
+          })
+          this.latest = resp.data.latest
+          this.hotest = resp.data.hotest
         } else if (this.groupType === 'weibo') {
-          toMyriadSimple('avgLike', resp.data.dataDimension.dailyDimension)
-          toMyriadSimple('avgForward', resp.data.dataDimension.dailyDimension)
-          toMyriadSimple('avgComment', resp.data.dataDimension.dailyDimension)
-          toMyriadSimple('fdLikeTotal', resp.data.dataDimension.dailyDimension)
-          toMyriadSimple('fdForwardTotal', resp.data.dataDimension.dailyDimension)
-          toMyriadSimple('fdCommentTotal', resp.data.dataDimension.dailyDimension)
-          this.date = resp.data.variousValues.date
-        } else if (this.groupType === 'book') {
-          toMyriadSimple('fdArticleTotal', resp.data.dataDimension.dailyDimension)
-          toMyriadSimple('fdAvgRead', resp.data.dataDimension.dailyDimension)
-          toMyriadSimple('fdReadTotal', resp.data.dataDimension.dailyDimension)
-          toMyriadSimple('fdAvgComment', resp.data.dataDimension.dailyDimension)
-          toMyriadSimple('fdCommentTotal', resp.data.dataDimension.dailyDimension)
-          this.date = resp.data.variousValues.date
+          _.each(resp.data.lastArticles, (item) => {
+            toMyriadSimple('fdCommentNum', item)
+            toMyriadSimple('fdLikeNum', item)
+          })
+          _.each(resp.data.hotArticles, (item) => {
+            toMyriadSimple('fdCommentNum', item)
+            toMyriadSimple('fdLikeNum', item)
+          })
+          this.latest = resp.data.lastArticles
+          this.hotest = resp.data.hotArticles
         }
-        this.curDimension = resp.data.dataDimension.dailyDimension
-
-        let totalRead = resp.data.variousValues.fdTotalReadQty
-
-        // 获取各类数值
-        this.date.forEach((item, index) => {
-          this.totalRead.push({date: item, value: totalRead[index]})
-        })
       }).finally(() => {
         this.loading = false
       })
@@ -381,13 +597,13 @@ export default {
     VTooltip,
     VLine,
     VScale,
-    VPoint
+    VPoint,
+    VLegend
   }
 }
 </script>
 <style lang="less" scoped>
 .goods-detail-page {
-  @rem: 50rem;
   background-color: #f5f5f5;
   min-height: 100vh;
   .detail-head {
@@ -413,12 +629,12 @@ export default {
   .basic-info {
     background: #fff;
     padding: 16px 0;
-    margin-bottom: 18/@rem;
+    margin-bottom: 0.36rem;
     .avatar-wrap {
       height: 100px;
       height: 100px;
       text-align: center;
-      margin: 16/@rem 0 24/@rem 0;
+      margin: 0.32rem 0 0.48rem 0;
       .avatar {
         width: 100px;
         height: 100px;
@@ -466,7 +682,7 @@ export default {
       padding: 0 40px;
       .price-item {
         width: 50%;
-        margin: 10/@rem 0;
+        margin: 0.2rem 0;
         display: inline-block;
         }
         .price-name {
@@ -496,7 +712,7 @@ export default {
   /* 媒体数据 */
   .tab-info-con {
     .media-item {
-      padding: 15/@rem 20/@rem;
+      padding: 0.3rem 0.4rem;
     }
     .media-title {
       font-size: 16px;
@@ -504,7 +720,6 @@ export default {
     .media-con {
       padding: 10px 0;
     }
-
     .circle-item {
       width: 84px;
     }
@@ -546,13 +761,70 @@ export default {
       font-size: 14px;
       width: 48%;
     }
+    .chart-wrap {
+      margin: 0 auto;
+    }
+    .chart-empty {
+      padding: 0.6rem 0;
+    }
   }
+
+  /* 最近发布 */
+.article-list {
+  background-color: #ffffff;
+  font-size: 14px;
+  overflow: hidden;
+  .article-scroll-view {
+    padding-bottom: 30px;
+  }
+  .article-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+    padding: 20px;
+  }
+  .article-img-wrap {
+    width: 92px;
+    height: 85px;
+  }
+  .article-img {
+    width: 92px;
+    height: 85px;
+  }
+  .article-right {
+    width: 224px;
+    margin-left: 20px;
+  }
+  .article-title {
+    font-size: 14px;
+    line-height: 20px;
+    height: 40px;
+  }
+  .article-info > div {
+    margin: 4px 0;
+  }
+  .article-scan {
+    width: 90px;
+  }
+  .article-thumb-up {
+    width: 80px;
+  }
+  .split-line {
+    position: absolute;
+    right: -20px;
+    bottom: 0;
+    width: 225px;
+    height: 1px;
+    background-color: #ededed;
+  }
+}
 
   /* 无数据 */
   .seven-null {
     width: 100%;
     padding: 75px 10px 100px 10px;
-    margin-top: 10rpx;
+    margin-top: 10px;
     background-color: #ffffff;
     text-align: center;
   }
