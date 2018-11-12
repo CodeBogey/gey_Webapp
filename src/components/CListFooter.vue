@@ -1,11 +1,7 @@
 <template>
   <div class="list-footer">
     <load-more :tip="tips" v-if="showLoading"></load-more>
-    <divider v-if="showEnd">{{ endText }}</divider>
-    <div class="empty" v-if="showEmpty">
-      <img class="empty-img" src="../assets/images/common/no-data.png" alt="">
-      <div class="empty-text">{{emptyText}}</div>
-    </div>
+    <divider v-if="!showLoading">{{ endText }}</divider>
   </div>
 </template>
 <script>
@@ -21,20 +17,8 @@ export default {
       default: false,
       type: Boolean
     },
-    showEnd: {
-      default: false,
-      type: Boolean
-    },
-    showEmpty: {
-      default: false,
-      type: Boolean
-    },
     endText: {
       default: '我是有底线的',
-      type: String
-    },
-    emptyText: {
-      default: '抱歉，没有搜索到您想要的商品',
       type: String
     }
   },
@@ -44,26 +28,3 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
-/* 无搜索结果时 */
-.empty {
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  margin-top: 40px;
-  z-index: 99;
-  text-align: center;
-}
-.empty-img {
-  width: 100px;
-  height: 96px;
-}
-.empty-text {
-  margin-top: 30px;
-}
-</style>
-<style lang="less">
-.list-footer .weui-loadmore {
-  margin: 0 auto 10px!important;
-}
-</style>

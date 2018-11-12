@@ -19,7 +19,8 @@
     </div>
 
     <div id='loadMore' class="load-more">
-      <c-list-footer :showLoading="showLoadMore" :showEnd="showEnd" :showEmpty="goodsList.length === 0" :emptyText="emptyText"></c-list-footer>
+      <c-list-footer v-if="!!goodsList.length" :showLoading="showLoadMore"></c-list-footer>
+      <c-empty v-else :showEmpty="!goodsList.length" :emptyText="emptyText"></c-empty>
     </div>
 
   </div>
@@ -28,6 +29,7 @@
 import CTabList from 'components/CTabList'
 import COrder from 'components/COrder'
 import CListFooter from 'components/CListFooter'
+import CEmpty from 'components/CEmpty'
 import CSearch from 'components/CSearch'
 import CGoodsItem from 'components/CGoodsItems'
 import { Loading, LoadMore, Divider } from 'vux'
@@ -45,8 +47,7 @@ export default {
       goodsList: [],
       pageCount: 1,
       timer: '',
-      showLoadMore: false,
-      showEnd: false,
+      showLoadMore: true,
       tab: {
         tabList: ['微信专题', '微博专题', '小红书专题'],
         cur: '微信专题'
@@ -138,29 +139,35 @@ export default {
         } else {
           this.goodsList = this.goodsList.concat(resp.data.data)
         }
+
+        if (resp.data.data.length < 15) {
+          this.showLoadMore = false
+        } else {
+          this.params.pageIndex++
+        }
       }).finally(() => {
         this.loading = false
         this.resetOrder = false
-        this.showLoadMore = false
       })
     },
     handleScroll () {
       if (this.timerLoadMore) {
         clearTimeout(this.timerLoadMore)
       }
-      this.timerLoadMore = setTimeout(() => { // 优化滚动事件
+      if (this.showLoadMore) {
+        this.timerLoadMore = setTimeout(() => { // 优化滚动事件
         if ($(window).height() + $(document).scrollTop() > $('#loadMore').offset().top && !this.loading) {
           if (this.goodsList.length !== 0) {
-            ++this.params.pageIndex
-            if (this.params.pageIndex > this.pageCount) {
-              this.showEnd = true
-              return false
-            }
-            this.showLoadMore = true
+            // ++this.params.pageIndex
+            // if (this.params.pageIndex > this.pageCount) {
+            //   this.showLoadMore = false
+            //   return false
+            // }
             this.fetchGoodsList(false)
           }
-        }
-      }, 50)
+          }
+        }, 50)
+      }
     }
   },
   components: {
@@ -171,7 +178,8 @@ export default {
     CGoodsItem,
     Loading,
     LoadMore,
-    Divider
+    Divider,
+    CEmpty
   }
 }
 </script>
