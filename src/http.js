@@ -5,6 +5,7 @@ import Vue from 'vue'
 // 使用自定义配置 创建一个 axios 实例
 const instance = axios.create({
   baseURL: '/buyer2',
+  timeout: 1000 * 20,
   headers: {
     'Content-Type': 'application/json;charset=UTF-8',
     'X-Requested-With': 'XMLHttpRequest',
