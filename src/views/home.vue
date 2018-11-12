@@ -129,7 +129,6 @@ export default {
     },
     fetchGoodsList (reset = true) {
       if (reset) {
-        // window.scrollTo(0, 0)
         this.loading = true
       }
       this.$http.post(`/goods/list/${this.curGroupId}`, this.params).then((resp) => {
@@ -183,22 +182,21 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@rem: 50rem;
 .adv {
   background: #f5f5f5;
 }
 .punsterAndBillboard {
-  padding: 7/@rem;
+  padding: 0.07rem;
   display: flex;
   justify-content: space-around
 }
 .punsterAndBillboard img {
-  height: 104/@rem;
+  height: 2.08rem;
 }
 .headline {
-  width: 375/@rem;
-  height: 84/@rem;
-  margin: 0 auto 10/@rem auto
+  width: 7.5rem;
+  height: 1.68rem;
+  margin: 0 auto 0.2rem auto
 }
 .search-head{
   width: 100%;
@@ -209,15 +207,15 @@ export default {
   left: 0;
   z-index: 999;
   width: 100%;
-  height: 46px;
+  height: 0.92rem;
 }
 .load-more {
-    height: 40px;
+    height: 0.8rem;
   }
 </style>
 <style lang="less">
 .home-page .vux-header {
   background-color: transparent;
-  transition: 0.1s linear;
+  // transition: 0.1s linear;
 }
 </style>

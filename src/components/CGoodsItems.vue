@@ -117,22 +117,21 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@rem: 50rem;
 .goods-item {
   position: relative;
-  padding: 20/@rem;
+  padding: 0.4rem;
   font-size: 12px;
-  background: #ffffff
+  background: #ffffff;
 }
 .avatar {
-  width: 92/@rem;
-  height: 92/@rem;
+  width: 1.84rem;
+  height: 1.84rem;
   float: left;
 }
 .goods-info {
   position: relative;
-  width: 200/@rem;
-  margin-left: 10/@rem;
+  width: 4rem;
+  margin-left: 0.2rem;
   display: inline-block;
 }
 .goods-name {
@@ -151,13 +150,13 @@ export default {
   word-wrap:normal;
 }
 .wechat-code, .goods-fan, .goods-price-name{
-  margin: 6/@rem 0;
+  margin: 0.12rem 0;
   display:inline-block;
   color:#8c8c8c;
   font-size:13px;
 }
 .wechat-code, .goods-fan {
-  margin:6/@rem 0;
+  margin:0.12rem 0;
 }
 .goods-trades {
   display: flex;
@@ -165,29 +164,29 @@ export default {
 }
 .trade-label {
   background-color:#ededed;
-  padding:2.5/@rem;
-  margin-right:2.5/@rem;
+  padding:0.05rem;
+  margin-right:0.05rem;
   font-size:13px;
 }
 .goods-fan {
-  width: 105/@rem;
+  width: 2.1rem;
 }
 .goods-price-date {
   display: inline-block;
   font-size:13px;
   color:#8c8c8c;
   float:right;
-  margin:6/@rem -27.5/@rem 0 0;
+  margin:0.12rem -0.55rem 0rem 0;
 }
 .goods-price {
-  padding:5/@rem 0 0 0;
+  padding:0.1rem 0 0 0;
   display:flex;
   flex-wrap:wrap;
   width:100%;
   align-items:center;
 }
 .goods-price-item {
-  margin-top:10/@rem;
+  margin-top:0.2rem;
   width:50%;
 }
 .goods-price-num {
@@ -201,9 +200,9 @@ export default {
 }
 .image-cart-money {
   float:left;
-  width:10/@rem;
-  height:12/@rem;
-  margin-right:10/@rem;
-  margin:1.5/@rem 4/@rem 0 0;
+  width:0.2rem;
+  height:0.24rem;
+  margin-right:0.2rem;
+  margin:0.03rem 0.08rem 0 0;
 }
 </style>

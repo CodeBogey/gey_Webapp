@@ -92,20 +92,19 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@rem: 50rem;
 .category-item {
   width: 24%;
   display: inline-block;
   text-align: center;
-  padding: 14/@rem 0;
+  padding: 0.28rem 0;
 }
 .category-item-img {
-  width: 25/@rem;
-  height: 25/@rem;
+  width: 0.5rem;
+  height: 0.5rem;
 }
 .category-item-text {
-  margin-top: 7/@rem;
-  font-size: 12/@rem;
+  margin-top: 0.14rem;
+  font-size: 12px;
 }
 .search-head{
   width: 100%;

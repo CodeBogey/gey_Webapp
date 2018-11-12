@@ -156,15 +156,15 @@ export default {
       }
       if (this.showLoadMore) {
         this.timerLoadMore = setTimeout(() => { // 优化滚动事件
-        if ($(window).height() + $(document).scrollTop() > $('#loadMore').offset().top && !this.loading) {
-          if (this.goodsList.length !== 0) {
-            // ++this.params.pageIndex
-            // if (this.params.pageIndex > this.pageCount) {
-            //   this.showLoadMore = false
-            //   return false
-            // }
-            this.fetchGoodsList(false)
-          }
+          if ($(window).height() + $(document).scrollTop() > $('#loadMore').offset().top && !this.loading) {
+            if (this.goodsList.length !== 0) {
+              // ++this.params.pageIndex
+              // if (this.params.pageIndex > this.pageCount) {
+              //   this.showLoadMore = false
+              //   return false
+              // }
+              this.fetchGoodsList(false)
+            }
           }
         }, 50)
       }
