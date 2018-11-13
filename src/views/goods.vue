@@ -114,7 +114,7 @@ export default {
     orderChange (item) {
       this.params.sortName = item.prop.prop
       this.params.sortOrder = item.order
-      this.pageIndex = 1
+      this.params.pageIndex = 1
       this.fetchGoodsList()
     },
     toSearch () {

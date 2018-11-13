@@ -24,11 +24,11 @@ export default {
 <style lang="less" scoped>
 /* 无搜索结果时 */
 .empty {
-  position: absolute;
-  left: 10px;
-  right: 10px;
+  // position: absolute;
+  // left: 10px;
+  // right: 10px;
   margin-top: 1.08rem;
-  z-index: 99;
+  height: 4.3rem;
   text-align: center;
 }
 .empty-img {
